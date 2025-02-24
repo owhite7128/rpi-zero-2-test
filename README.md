@@ -8,7 +8,7 @@
 
 ### Display Example
 
-![title](Images/hello_world.png)
+![title](images/hello_world.png)
 
 ### How to Run on a Pi
 
