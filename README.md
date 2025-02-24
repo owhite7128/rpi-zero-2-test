@@ -20,6 +20,6 @@ cargo build --release
 ```
 Then copy from the elf, copy to a flat binary named kernel7/kernel8 depending on how your Pi expects it for boot
 ```sh
-aarch64-elf-objcopy -O binary -S target/aarch64-unknown-none/release/blinky ./kernel7.img
+aarch64-elf-objcopy -O binary -S target/aarch64-unknown-none/release/rpi-zero-2-test ./kernel7.img
 ```
 After that, just copy the kernel7.img file onto a FAT32 formatted sd card, that contains all of the boot firmware from the latest release of the [Raspberry Pi firmware repo](https://github.com/raspberrypi/firmware/releases)
