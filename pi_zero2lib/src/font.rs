@@ -300,3 +300,116 @@ pub const SPECIAL_CHARS: [[bool; 64]; 1] = [
 
     ]
 ];
+
+pub const NUMBERS: [[bool; 64]; 10] = [
+    // 0
+    [
+        true, true, true, true, true, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, false, false, false,
+    ],
+    // 1
+    [
+        false, false, false, true, false, false, false, false,
+        false, false, true, true, false, false, false, false,
+        false, true, false, true, false, false, false, false,
+        false, false, false, true, false, false, false, false,
+        false, false, false, true, false, false, false, false,
+        false, false, false, true, false, false, false, false,
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, false, false, false,
+    ],
+    // 2
+    [
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, true, false, false,
+        true, true, true, true, true, true, false, false,
+        true, false, false, false, false, false, false, false,
+        true, false, false, false, false, false, false, false,
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, false, false, false,
+    ],
+    // 3
+    [
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, true, false, false,
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, true, false, false,
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, false, false, false,
+    ],
+    // 4
+    [
+        true, false, false, false, false, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, false, false, false,
+    ],
+    // 5
+    [
+        true, true, true, true, true, true, false, false,
+        true, false, false, false, false, false, false, false,
+        true, false, false, false, false, false, false, false,
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, true, false, false,
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, false, false, false,
+    ],
+    // 6
+    [
+        true, true, true, true, true, true, false, false,
+        true, false, false, false, false, false, false, false,
+        true, false, false, false, false, false, false, false,
+        true, true, true, true, true, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, false, false, false,
+    ],
+    // 7
+    [
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, false, false, false,
+    ],
+    // 8
+    [
+        true, true, true, true, true, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, true, true, true, true, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, false, false, false,
+    ],
+    // 9
+    [
+        true, true, true, true, true, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, false, false, false, false, true, false, false,
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, true, false, false,
+        false, false, false, false, false, true, false, false,
+        true, true, true, true, true, true, false, false,
+        false, false, false, false, false, false, false, false,
+    ],
+];

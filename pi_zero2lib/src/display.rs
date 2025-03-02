@@ -41,13 +41,13 @@ impl Default for MailboxBuffer {
             tag0_id: 0x00048003, //phy size
             tag0_size: 8,
             tag0_code: 8,
-            width: 1920,
-            height: 1080,
+            width: 640,
+            height: 480,
             tag1_id: 0x00048004, //v size
             tag1_size: 8,
             tag1_code: 8,
-            vwidth: 1920,
-            vheight: 1080,
+            vwidth: 640,
+            vheight: 480,
             tag2_id: 0x00048005, // s_depth
             tag2_size: 4,
             tag2_code: 4,
@@ -121,6 +121,23 @@ pub struct Display {
 }
 
 impl Display {
+    pub const fn empty() -> Self {
+        Self {
+            addr: 0 as *mut u8,
+            width: 0,
+            height: 0,
+            vwidth: 0,
+            vheight: 0,
+            bpp: 0,
+            pitch: 0,
+            fb_size: 0,
+            offset_cell: Cell::new(Offset {
+                x_off: 0,
+                y_off: 0
+            })
+        }
+
+    }
     pub fn init() -> Self {
         let mut mb = MailboxBuffer::default();
         mailbox_write(&mut mb);
@@ -137,7 +154,7 @@ impl Display {
             bpp: mb.depth,
             pitch: mb.pitch,
             fb_size: mb.fb_size,
-            offset_cell: Cell::new(Offset {x_off: 100, y_off: 100})
+            offset_cell: Cell::new(Offset {x_off: 0, y_off: 8})
         }
     }
 
@@ -184,6 +201,7 @@ impl Display {
     }
 
     pub fn print_char(&self, ch: char, bgra: u32) {
+        let mut nl = 0;
         let letter = if ch as u8 >= 65 && ch as u8 <= 90 {
             let idx = (ch as u8 - b'A') as usize;
             if idx > 25 {
@@ -191,25 +209,45 @@ impl Display {
             } else {
                 ALPHABET[idx]
             }
+        } else if ch as u8 >= 48 && ch as u8 <= 57 {
+            let idx = (ch as u8 - b'0') as usize;
+            if idx > 25 {
+                NUMBERS[0]
+            } else {
+                NUMBERS[idx]
+            }
+        } else if ch as u8 == 10 {
+            nl = 1;
+            SPECIAL_CHARS[0]
         } else {
             SPECIAL_CHARS[0]
         };
 
         let offset = self.offset_cell.get();
 
+        let (curr_x, curr_y) = if (offset.x_off + 8) >= self.width {
+            (0, offset.y_off + 8)
+        } else {
+            (offset.x_off, offset.y_off)
+        };
+
         for (idx, val) in letter.iter().enumerate() {
             if *val {
                 let x = (idx % 8) as u32;
                 let y = (idx / 8) as u32;
-                self.draw_pixel(x + offset.x_off, y + offset.y_off, bgra);
+                self.draw_pixel(x + curr_x, y + curr_y, bgra);
 
             }
         }
+        let (new_x_off, new_y_off) = if nl == 1 {
+            (0, curr_y + 8)
+        } else {
+            (curr_x + 8, curr_y)
+        };
 
         self.offset_cell.set(Offset {
-            x_off: offset.x_off + 8,
-            y_off: offset.y_off
-            //y_off: offset.y_off + 8
+            x_off: new_x_off,
+            y_off: new_y_off
         })
     } 
 
@@ -219,4 +257,32 @@ impl Display {
         }
 
     }
+
+    pub fn print_num(&self, mut num: u32, bgra: u32) {
+        if num == 0 {
+            self.print_char('0', bgra);
+            return
+        }
+
+        let mut digits: [u8; 32] = [0; 32];
+        let mut idx = 0;
+    
+        while num > 0 {
+            digits[idx] = (num % 10) as u8;
+            num /= 10;
+            idx += 1;
+        }
+    
+        let mut trailed = false;
+        for digit in digits.iter().rev() {
+            if trailed || *digit != 0 {
+                self.print_char(('0' as u8 + digit) as char, bgra);
+                trailed = true;
+            }
+        }
+    }
 }
+
+unsafe impl Sync for Display {}
+
+unsafe impl Send for Display {}

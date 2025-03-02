@@ -34,6 +34,9 @@ impl Instant {
         Self { ticks }
     }
 
+    pub const fn to_u64(&self) -> u64 {
+        self.ticks
+    }
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]

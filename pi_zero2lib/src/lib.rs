@@ -24,3 +24,5 @@ pub mod display;
 mod font;
 
 pub mod uart;
+
+pub mod alloc;
